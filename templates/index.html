@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script> 
+ </head>
+
+  <body>
+     <h3>Введите ip</h1>
+<script>
+        function check() {
+            $.ajax({
+                type: "POST",
+                success: function(response) {
+                    $('#loading').show();
+                    $('#result').hide();
+                    $('#loading').html("Подождите, идет проверка...")
+                }
+            });
+
+            $.ajax({
+                type: "POST",
+                url: "/check",
+                data: $('form').serialize(),
+                type: 'POST',
+                success: function(response) {
+                    var json = jQuery.parseJSON(response)
+                    $('#result').show();
+                    $('#loading').hide();
+                    $('#result').html(json.data)
+                    console.log(response);
+                },
+                error: function(error) {
+                    console.log(error);
+                }
+            });
+
+        }
+</script>
+    <form method="POST" action = "/check" name="form">
+      <div class = "form-group">
+        <input type="text" name = "ip">
+      </div>
+     <h3>Введите port</h1>
+      <div class = "form-group">
+        <input type="text" name = "port">
+      </div>
+
+<!--     <input class="btn btn-primary" type="submit" value="Проверить"> -->
+       <input class="btn btn-primary" value="Проверить" onclick="check();">
+    </form><br>
+    <div id="loading"></div>
+    <div id="result"></div>
+  </body>
+</html>
