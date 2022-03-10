@@ -31,8 +31,10 @@
                     console.log(response);
                 },
                 error: function(error) {
-                    console.log(error);
-                }
+                    $('#result').show();
+                    $('#loading').hide();
+                    $('#result').html("Ошибка. Попробуйте загрузить меньший объем")
+                } 
             });
 
         }
@@ -45,8 +47,6 @@
       <div class = "form-group">
         <input type="text" name = "port">
       </div>
-
-<!--     <input class="btn btn-primary" type="submit" value="Проверить"> -->
        <input class="btn btn-primary" value="Проверить" onclick="check();">
     </form><br>
     <div id="loading"></div>
